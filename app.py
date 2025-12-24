@@ -11,9 +11,9 @@ import torch
 import pandas as pd
 
 app = Flask(__name__, 
-            template_folder='Frontend/Templates', 
-            static_folder='Frontend/Static',
-            static_url_path='/Static')
+            template_folder='templates', 
+            static_folder='static',
+            static_url_path='/static')
 app.config['SECRET_KEY'] = secrets.token_hex(16)  # Generate a secret key
 basedir = os.path.abspath(os.path.dirname(__file__))
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'site.db')
@@ -37,7 +37,7 @@ class LoginForm(FlaskForm):
     submit = SubmitField('Log In')
 
 # Load the ratings.csv file
-ratings_df = pd.read_csv('Datasets/ratings.csv')
+ratings_df = pd.read_csv('datasets/ratings.csv')
 
 # Define the available genres
 available_genres = [
@@ -118,10 +118,10 @@ def movie_details():
 @app.route('/top_rated_movies.html', methods=['GET', 'POST'])
 def top_rated_movies():
     # Load movies dataset
-    movies_df = pd.read_csv(r'C:\Users\HP\Documents\Major_Project_Files\project1\frontend\ml-latest-small\ml-latest-small\movies.csv')
+    movies_df = pd.read_csv(r'datasets/movies.csv')
     
     # Load ratings dataset
-    ratings_df = pd.read_csv(r'C:\Users\HP\Documents\Major_Project_Files\project1\frontend\ml-latest-small\ml-latest-small\ratings.csv')
+    ratings_df = pd.read_csv(r'datasets/ratings.csv')
 
     # Merge datasets based on movieId
     movie_data = pd.merge(ratings_df, movies_df, on='movieId', how='inner')

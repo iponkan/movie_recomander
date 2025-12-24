@@ -53,8 +53,8 @@ torch_geometric.__version__
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 device
 
-movies_df = pd.read_csv("Datasets/movies.csv",index_col='movieId')
-ratings_df = pd.read_csv("Datasets/ratings.csv")
+movies_df = pd.read_csv("datasets/movies.csv",index_col='movieId')
+ratings_df = pd.read_csv("datasets/ratings.csv")
 
 
 ratings_df.shape
@@ -398,7 +398,7 @@ max(light_precision), max(light_recall)
 import pandas as pd
 
 # Load the movies DataFrame from movies.csv
-movies_df = pd.read_csv('Datasets/movies.csv')
+movies_df = pd.read_csv('datasets/movies.csv')
 
 # Extract unique genres
 unique_genres = set('|'.join(movies_df['genres']).split('|'))
@@ -449,7 +449,7 @@ def get_top_recommendations(user_id, selected_genres, model, movies_df, le_item,
 
 def main():
     # Load movies data
-    movies_df = load_movies_data('Datasets/movies.csv')
+    movies_df = load_movies_data('datasets/movies.csv')
 
     # Get user preferences
     selected_genres = user_preferences(list(set('|'.join(movies_df['genres']).split('|')) - {"(no genres listed)"}))
@@ -459,7 +459,7 @@ def main():
     top_recommendations = get_top_recommendations(random_user_id, selected_genres, lightgcn, movies_df, le_item, n_items)
 
     # Load ratings data
-    ratings_df = pd.read_csv('Datasets/ratings.csv')
+    ratings_df = pd.read_csv('datasets/ratings.csv')
 
     # Filter and sort recommendations based on ratings and year
     recommended_ratings = ratings_df[ratings_df['movieId'].isin(top_recommendations['movieId'])]
