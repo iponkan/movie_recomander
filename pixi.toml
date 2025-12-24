@@ -1,0 +1,34 @@
+[workspace]
+name = "movie-recommendation"
+# 移除 nvidia 频道，减少干扰
+channels = ["pytorch", "pyg", "conda-forge"]
+platforms = ["win-64"]
+
+[dependencies]
+# 基础环境
+python = "3.10.*"
+pandas = "*"
+numpy = "<2.0.0"
+requests = "*"
+matplotlib = "*"
+seaborn = "*"
+
+# Web 服务
+flask = "*"
+flask-sqlalchemy = "*"
+flask-wtf = "*"
+
+# 机器学习核心 (切换为 CPU 专用版本)
+# 使用 build = "*cpu*" 强制 Pixi 选择不带 CUDA 的二进制文件
+pytorch = { version = "2.4.*", build = "*cpu*" }
+torchvision = { version = "*", build = "*cpu*" }
+torchaudio = { version = "*", build = "*cpu*" }
+pyg = "*"
+scikit-learn = ">=1.7.2,<2"
+email-validator = ">=2.3.0,<3"
+
+[tasks]
+# 启动推荐系统
+start = "python app.py"
+# 运行训练脚本
+train = "python original_lightgcn.py"

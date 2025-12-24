@@ -43,7 +43,7 @@ import torch_geometric
 from torch_geometric.nn.conv import MessagePassing
 from torch_geometric.utils import degree
 
-from tqdm.notebook import tqdm
+from tqdm import tqdm
 from sklearn import preprocessing as pp
 from sklearn.model_selection import train_test_split
 import scipy.sparse as sp
@@ -53,8 +53,8 @@ torch_geometric.__version__
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 device
 
-movies_df = pd.read_csv("C:\\Users\\HP\\Documents\\Major_Project_Files\\frontend\\ml-latest-small\\ml-latest-small\\movies.csv",index_col='movieId')
-ratings_df = pd.read_csv("C:\\Users\\HP\\Documents\\Major_Project_Files\\frontend\\ml-latest-small\\ml-latest-small\\ratings.csv")
+movies_df = pd.read_csv("Datasets/movies.csv",index_col='movieId')
+ratings_df = pd.read_csv("Datasets/ratings.csv")
 
 
 ratings_df.shape
@@ -276,7 +276,7 @@ def get_metrics(user_Embed_wts, item_Embed_wts, n_users, n_items, train_data, te
 latent_dim = 64
 n_layers = 3
 
-EPOCHS = 50
+EPOCHS = 1
 BATCH_SIZE = 1024
 DECAY = 0.0001
 LR = 0.005
@@ -398,7 +398,7 @@ max(light_precision), max(light_recall)
 import pandas as pd
 
 # Load the movies DataFrame from movies.csv
-movies_df = pd.read_csv('C:\\Users\\HP\\Documents\\Major_Project_Files\\frontend\\ml-latest-small\\ml-latest-small\\movies.csv')
+movies_df = pd.read_csv('Datasets/movies.csv')
 
 # Extract unique genres
 unique_genres = set('|'.join(movies_df['genres']).split('|'))
@@ -449,7 +449,7 @@ def get_top_recommendations(user_id, selected_genres, model, movies_df, le_item,
 
 def main():
     # Load movies data
-    movies_df = load_movies_data('C:\\Users\\HP\\Documents\\Major_Project_Files\\frontend\\ml-latest-small\\ml-latest-small\\movies.csv')
+    movies_df = load_movies_data('Datasets/movies.csv')
 
     # Get user preferences
     selected_genres = user_preferences(list(set('|'.join(movies_df['genres']).split('|')) - {"(no genres listed)"}))
@@ -459,7 +459,7 @@ def main():
     top_recommendations = get_top_recommendations(random_user_id, selected_genres, lightgcn, movies_df, le_item, n_items)
 
     # Load ratings data
-    ratings_df = pd.read_csv('C:\\Users\\HP\\Documents\\Major_Project_Files\\frontend\\ml-latest-small\\ml-latest-small\\ratings.csv')
+    ratings_df = pd.read_csv('Datasets/ratings.csv')
 
     # Filter and sort recommendations based on ratings and year
     recommended_ratings = ratings_df[ratings_df['movieId'].isin(top_recommendations['movieId'])]

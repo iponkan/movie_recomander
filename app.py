@@ -10,7 +10,10 @@ from original_lightgcn import user_preferences, get_top_recommendations, lightgc
 import torch
 import pandas as pd
 
-app = Flask(__name__)
+app = Flask(__name__, 
+            template_folder='Frontend/Templates', 
+            static_folder='Frontend/Static',
+            static_url_path='/Static')
 app.config['SECRET_KEY'] = secrets.token_hex(16)  # Generate a secret key
 basedir = os.path.abspath(os.path.dirname(__file__))
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'site.db')
@@ -34,7 +37,7 @@ class LoginForm(FlaskForm):
     submit = SubmitField('Log In')
 
 # Load the ratings.csv file
-ratings_df = pd.read_csv('C:\\Users\\HP\\Documents\\Major_Project_Files\\frontend\\ml-latest-small\\ml-latest-small\\ratings.csv')
+ratings_df = pd.read_csv('Datasets/ratings.csv')
 
 # Define the available genres
 available_genres = [
